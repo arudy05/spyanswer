@@ -1,5 +1,5 @@
 ###############################################################################
-# SPYANSWER! - version 0.7                                                    #
+# SPYANSWER! - version 0.8                                                    #
 # an answer-and-question trivia game (like Jeopardy!) for the Spyder IDE      #
 # by Adam Rudy (arudy@ualberta.ca)                                            #
 # written for the ENCMP 100 Programming Contest at the University of Alberta  #
@@ -9,10 +9,12 @@ import matplotlib.pyplot as plt
 import matplotlib.font_manager as font
 import numpy as np
 import time
+import sys
 
 ## Global variables kept here for efficiency, etc
 categories = ["These","Are","Not","Actual","Jeopardy","Categories"]
-questn = ["question"]
+quest = ["This is a question", "This is a question", "This is a question", "This is a question", "This is a question", "This is a question"]
+questions = [quest, quest, quest, quest, quest]
 scores = [0,0,0]
 pBuzz = 0
 catSet = font.FontProperties(size="24", weight="bold")
@@ -28,8 +30,9 @@ def main(): # The heart and soul (not really) of the program
     time.sleep(1.5)
     print("\r[============ is... ============]", end="")
     time.sleep(1.5) # huge ascii block coming up. woah
-    print("\r███████╗██████╗ ██╗   ██╗ █████╗ ███╗   ██╗███████╗██╗    ██╗███████╗██████╗ ██╗\n██╔════╝██╔══██╗╚██╗ ██╔╝██╔══██╗████╗  ██║██╔════╝██║    ██║██╔════╝██╔══██╗██║\n███████╗██████╔╝ ╚████╔╝ ███████║██╔██╗ ██║███████╗██║ █╗ ██║█████╗  ██████╔╝██║\n╚════██║██╔═══╝   ╚██╔╝  ██╔══██║██║╚██╗██║╚════██║██║███╗██║██╔══╝  ██╔══██╗╚═╝\n███████║██║        ██║   ██║  ██║██║ ╚████║███████║╚███╔███╔╝███████╗██║  ██║██╗\n╚══════╝╚═╝        ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝ ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝╚═╝\n")
-    time.sleep(1) 
+    print("\r███████╗██████╗ ██╗   ██╗ █████╗ ███╗   ██╗███████╗██╗    ██╗███████╗██████╗ ██╗\n██╔════╝██╔══██╗╚██╗ ██╔╝██╔══██╗████╗  ██║██╔════╝██║    ██║██╔════╝██╔══██╗██║\n███████╗██████╔╝ ╚████╔╝ ███████║██╔██╗ ██║███████╗██║ █╗ ██║█████╗  ██████╔╝██║\n╚════██║██╔═══╝   ╚██╔╝  ██╔══██║██║╚██╗██║╚════██║██║███╗██║██╔══╝  ██╔══██╗╚═╝\n███████║██║        ██║   ██║  ██║██║ ╚████║███████║╚███╔███╔╝███████╗██║  ██║██╗\n╚══════╝╚═╝        ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝ ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝╚═╝")
+    time.sleep(0.5) 
+    print("Version %-11s %60s\n" % ("0.8", "Written by Adam Rudy"))
     
     for i in range(3):
         pname = str(input("[-------- Player %d name --------] > " % (i+1)))
@@ -62,7 +65,9 @@ def round(num): #This function handles the basic gameplay loop
         except ValueError:
             error = True
         
-        if error:
+        if cat == "exit":
+            sys.exit("[========= Game ended! =========]")
+        elif error:
             errors(1)
         elif int(cat) < 1 or int(cat) > 6: #there are only 6 categories. restart
             errors(1)
@@ -84,6 +89,7 @@ def round(num): #This function handles the basic gameplay loop
             else:
                 match indexes:
                     case 1|2|3|4|5:
+                        question(cat, indexes-1)
                         pBuzz = buzzer()
                         
                         if indexes == 1:
@@ -159,9 +165,12 @@ def graphics(col1, col2, col3, col4, col5): #This function handles drawing the g
                 cellText.set_color("white")
                 cellText.set_fontproperties(catSet)
             else:
-                cellText.set_color("#D69F4C")
+                if str(cellText) == "Text(0, 0, '0')":
+                    cellText.set_color("#010D8C")
+                else:
+                    cellText.set_color("#D69F4C")
                 cellText.set_fontproperties(tileSet)
-    
+            
     #Draws the table with player scores
     score = plt.table(scorecells,loc='bottom',cellLoc='center',cellColours=scorecolours)
     score.scale(2,6)
@@ -183,10 +192,25 @@ def graphics(col1, col2, col3, col4, col5): #This function handles drawing the g
     plt.show()
     return (tablecells, cellsum)
 
-def errors(type): # This functions handles invalid inputs and what to return
-    if type == 1:
+def question(cat, indexes): # This function displays answers (yes these are answers and NOT questions)
+    text = np.array(questions[int(indexes)][int(cat)])
+    text.resize(1,1)
+    plt.figure(figsize=(6,7),dpi=100,facecolor="#0567D2")
+    displayQ = plt.table(text, loc='center', cellLoc='center', cellColours=np.full((1,1), "#010D8C"))
+    displayQ.scale(2,26)
+    displayQ.auto_set_font_size(False)
+    cellText = displayQ[(0,0)].get_text()
+    cellText.set_color("white")
+    cellText.set_fontproperties(catSet)
+    plt.gca().get_xaxis().set_visible(False)
+    plt.gca().get_yaxis().set_visible(False)
+    plt.box(on=None)
+    plt.show()
+
+def errors(q): # This functions handles invalid inputs and what to return
+    if q == 1:
         print("[###### Invalid category! ######]")
-    elif type == 2:
+    elif q == 2:
         print("[####### Invalid wager!! #######]")
 
 main()
