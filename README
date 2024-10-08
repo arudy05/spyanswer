@@ -4,6 +4,21 @@
 # written for the ENCMP 100 Programming Contest at the University of Alberta  #
 ###############################################################################
 
+## Preface ##
+This is a project of mine I never actually used git for in the first place when
+initially making it. In fact, I actually forgot about the existence of this GitHub account 
+of mine until very recently!. However, I had stored each "version" of the script in separate
+files, meaning that I could commit each file individually to this fresh repository, as a way
+to preserve some semblance of history and of my coding process.
+
+This was an entry to a programming contest, and I ended up not only getting an A, but also
+earning 3rd place in the "Games & Puzzles" category. I was also required to make a video about 
+this project, which you can find here: https://www.youtube.com/watch?v=hK_qsTExHZY
+
+This is best played with the Spyder IDE. I might come back to this in the future and use a 
+more conventional library for this type of project, but that's still very much up in the air :)
+
+## Original README ##
 SPYANSWER! is a trivia game played within the Spyder IDE. The game itself is modeled after
 the Jeopardy! game show and takes many cues from it, although you do not have to strictly
 follow that game's format. The game is played with 3 players in 2 rounds - each round has
@@ -14,7 +29,7 @@ their own questions and answers by editing the provided categories1.json and cat
 files (whilst keeping the format intact, otherwise the file cannot be used).
 
 INCLUDED FILES:
-    v1.1.py          - The program itself
+    spyanswer.py     - The program itself
     categories1.json - Categories, questions and answers for the first round of the game
     categories2.json - Categories, questions and answers for the second round of the game
     README           - The file you're reading right now.
