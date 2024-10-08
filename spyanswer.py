@@ -1,5 +1,5 @@
 ###############################################################################
-# SPYANSWER! - version 0.6                                                    #
+# SPYANSWER! - version 0.7                                                    #
 # an answer-and-question trivia game (like Jeopardy!) for the Spyder IDE      #
 # by Adam Rudy (arudy@ualberta.ca)                                            #
 # written for the ENCMP 100 Programming Contest at the University of Alberta  #
@@ -12,6 +12,7 @@ import time
 
 ## Global variables kept here for efficiency, etc
 categories = ["These","Are","Not","Actual","Jeopardy","Categories"]
+questn = ["question"]
 scores = [0,0,0]
 pBuzz = 0
 catSet = font.FontProperties(size="24", weight="bold")
@@ -40,76 +41,75 @@ def main(): # The heart and soul (not really) of the program
     round(2)
     print("[========= GAME OVER! =========]") 
 
-def round(num): #This function sets up rounds and then passes it off to game()
-    global rnddiv
-    global answer1
-    global answer2
-    global answer3
-    global answer4
-    global answer5
-    
+def round(num): #This function handles the basic gameplay loop
     rnddiv = 200*num
-    answer1 = [rnddiv*1] * 6
-    answer2 = [rnddiv*2] * 6
-    answer3 = [rnddiv*3] * 6
-    answer4 = [rnddiv*4] * 6
-    answer5 = [rnddiv*5] * 6
+    col1 = [rnddiv*1] * 6
+    col2 = [rnddiv*2] * 6
+    col3 = [rnddiv*3] * 6
+    col4 = [rnddiv*4] * 6
+    col5 = [rnddiv*5] * 6
     print("[======= ROUND %d START!! =======]\n" % num)
-    game()
-
-def game(): # This function handles the basic gameplay loop, calling on graphics() and buzzer() as needed.
-    graphics() # initial rendering of the board
+    
+    (tablecells, cellsum) = graphics(col1, col2, col3, col4, col5) # initial rendering of the board
+    
     # Checking that there are still spaces on the board left
-    while np.sum(answer1)+np.sum(answer2)+np.sum(answer3)+np.sum(answer4)+np.sum(answer5) != 0:        
+    while cellsum != 0:        
         error = False
         cat = input("[------ Select a category ------] > ")
+        
         try: # Error handling - making sure that cat can be an integer
             int(cat) # I realize that decimals just end up ignored -- that's fine honestly
         except ValueError:
             error = True
+        
         if error:
-            print("[###### Invalid category! ######]")
+            errors(1)
         elif int(cat) < 1 or int(cat) > 6: #there are only 6 categories. restart
-            print("[###### Invalid category! ######]")
+            errors(1)
         else:
             cat = int(cat) - 1
             wager = input("[--------- Your wager? ---------] > ")
+            
             try: # more error handling :)
                 indexes = int(wager)/rnddiv # important
             except ValueError:
                 error = True
+            
             if error:
-                print("[####### Invalid wager!! #######]]")
+                errors(2)
             elif indexes < 1 or indexes > 5:
-                print("[####### Invalid wager!! #######]")
+                errors(2)
             elif tablecells[int(indexes)][cat] == 0: #cant select a tile that was already selected
-                print("[####### Invalid wager!! #######]")
+                errors(2)
             else:
-                match indexes: #there is a syntax error here according to spyder. ignore this
+                match indexes:
                     case 1|2|3|4|5:
-                        buzzer()
+                        pBuzz = buzzer()
+                        
                         if indexes == 1:
-                            answer1[cat] = 0
+                            col1[cat] = 0
                         elif indexes == 2:
-                            answer2[cat] = 0
+                            col2[cat] = 0
                         elif indexes == 3:
-                            answer3[cat] = 0
+                            col3[cat] = 0
                         elif indexes == 4:
-                            answer4[cat] = 0
+                            col4[cat] = 0
                         else:
-                            answer5[cat] = 0
+                            col5[cat] = 0
+                        
                         if pBuzz == 3:
                             print("[### No answer! Moving on... ###]")
                         else: # if pBuzz is anything other than 0, 1, 2 or 3 we have bigger problems
                             scores[pBuzz] = scores[pBuzz] + int(rnddiv*indexes)#adds value of the tile to player's score
-                        graphics() #refreshes graphics to reflect the updated board
+                        (tablecells, cellsum) = graphics(col1, col2, col3, col4, col5) #refreshes graphics to reflect the updated board
+                    
                     case other: #you can't wager other values than the ones that are on the board
-                        print("[####### Invalid wager!! #######]")
+                        errors(2)
         print()
-    print("All questions selected!\n")
+    print("[=== All questions selected! ===]\n")
 
 def buzzer(): # This function handles the "buzzer" for each answer.
-    #A 5-second countdown before you can buzz in.
+    # A 5-second countdown before you can buzz in.
     print()
     for i in range(1,6):
         countdown = abs(6-i)
@@ -118,7 +118,6 @@ def buzzer(): # This function handles the "buzzer" for each answer.
     print("\r[============= GO! =============]")
     
     #the idea here is that the first person to buzz in will be the first to type thus yeah
-    global pBuzz
     buzz = str(input("[-------- Buzz in now!! --------] > "))
     bnum = 0
     while True: # makes sure that the players are pressing the right keys to buzz in
@@ -135,15 +134,16 @@ def buzzer(): # This function handles the "buzzer" for each answer.
             else:
                 bnum = bnum+1
         except IndexError:
-            pBuzz = 3 #special condition for if no one answered at all
+            pBuzz = 3 # special condition for if no one answered at all
             break
+    return pBuzz
 
-def graphics(): #This function handles drawing the game's graphics.
-    global tablecells 
-    
+def graphics(col1, col2, col3, col4, col5): #This function handles drawing the game's graphics.
+   
     #These variables take pre-existing lists and arrange them into something usable
-    tablecells = [categories, answer1, answer2, answer3, answer4, answer5 ]
+    tablecells = [categories, col1, col2, col3, col4, col5 ]
     scorecells = [players, scores]
+    cellsum = np.sum(col1)+np.sum(col2)+np.sum(col3)+np.sum(col4)+np.sum(col5)
     
     #base figure everything goes onto this thing
     plt.figure(figsize=(12,1),dpi=100,facecolor="#0567D2")
@@ -181,5 +181,12 @@ def graphics(): #This function handles drawing the game's graphics.
     plt.gca().get_yaxis().set_visible(False)
     plt.box(on=None)
     plt.show()
+    return (tablecells, cellsum)
+
+def errors(type): # This functions handles invalid inputs and what to return
+    if type == 1:
+        print("[###### Invalid category! ######]")
+    elif type == 2:
+        print("[####### Invalid wager!! #######]")
 
 main()
