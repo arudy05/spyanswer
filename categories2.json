@@ -1,0 +1,268 @@
+{
+    "key": "trebek",
+    "category": {
+        "1": {
+            "name": "Utterly\nAbsurd",
+            "1": {
+                "name": "The answer to life, the universe\nand everything is this seemingly\nrandom number, according to\na supercomputer computing the question\nfor millions of years.",
+                "answers": [
+                    "42",
+                    "forty-two",
+                    "fourty-two",
+                    "Fourty-two",
+                    "Forty-two"
+                ]
+            },
+            "2": {
+                "name": "This article of lunch meat gained\nnotoriety not for the meat\nitself, but rather to describe\njunk email.",
+                "answers": [
+                    "Spam",
+                    "spam"
+                ]
+            },
+            "3": {
+                "name": "\"Fat\",\"Amish Paradise\" and \"\" - \nthese are just some of the many parodies\nthis American singer has written and performed.",
+                "answers": [
+                    "\"Weird Al\" Yankovic",
+                    "Weird Al Yankovic",
+                    "weird al yankovic",
+                    "Weird Al",
+                    "weird al"
+                ]
+            },
+            "4": {
+                "name": "There's probably nothing more absurd\nthan this TV personality and businessman\nbeing elected as President of the\nUnited States,",
+                "answers": [
+                    "Donald Trump",
+                    "donald trump",
+                    "Trump",
+                    "trump"
+                ]
+            },
+            "5": {
+                "name": "\"The Royal Philharmonic Orchestra\nGoes To The Bathroom\" is the\nname of an episode of this British series.",
+                "answers": [
+                    "Monty Python's Flying Circus",
+                    "monty python's flying circus",
+                    "Monty Python",
+                    "money python"
+                ]
+            }
+        },
+        "2": {
+            "name": "Around\nThe World",
+            "1": {
+                "name": "This South American rainforest\nencompasses about 5.5 million\nsquare kilometers of area",
+                "answers": [
+                    "The Amazon Rainforest",
+                    "The Amazon Jungle",
+                    "The Amazon",
+                    "Amazon",
+                    "Amazon Rainforest",
+                    "Amazon Jungle",
+                    "the amazon rainforest",
+                    "the amazon jungle",
+                    "the amazon",
+                    "amazon",
+                    "amazon rainforest",
+                    "amazon jungle"
+                ]
+            },
+            "2": {
+                "name": "This active volcano located in Japan\nis not only a point of interest for\nsightseers, but also an important cultural icon\nof the country.",
+                "answers": [
+                    "Mount Fuji",
+                    "mount fuji",
+                    "Fuji",
+                    "fuji"
+                ]
+            },
+            "3": {
+                "name": "This impressive feat of nature,\n located in Arizona, was carved over\ncenturies by the Colorado River.",
+                "answers": [
+                    "The Grand Canyon",
+                    "the grand canyon",
+                    "Grand Canyon",
+                    "grand canyon"
+                ]
+            },
+            "4": {
+                "name": "'This African mountain, while not\nas impressive as something like\nEverest, is still one of the tallest\nmountains on the planet.",
+                "answers": [
+                    "Mount Kilimanjaro",
+                    "mount kilimanjaro",
+                    "Kilimanjaro",
+                    "kilimanjaro"
+                ]
+            },
+            "5": {
+                "name": "Hoodoos dot the landscape of this\nfossil-rich Canadian provincial park -\nlocated a few hours away from the university's\nNoth Campus.",
+                "answers": [
+                    "Dinosaur Provincial Park",
+                    "dinosaur provincial park"
+                ]
+            }
+        },
+        "3": {
+        "name": "\"Bored\"\nGames",
+            "1": {
+                "name": "Capitalism comes to a head in this\nclassic property-owning game.",
+                "answers": [
+                    "Monopoly",
+                    "monopoly"
+                ]
+            },
+            "2": {
+                "name": "5 dice, a cup and a pad of paper\nare all that you need to play\this game.",
+                "answers": [
+                    "Yahtzee",
+                    "yahtzee"
+                ]
+            },
+            "3": {
+                "name": "Gather a few friends and become\na mass of tangled limbs in this\nbody-bending party game.",
+                "answers": [
+                    "Twister",
+                    "twister"
+                ]
+            },
+            "4": {
+                "name": "Aim, hit, and sink ships in\nthis game of naval combat.",
+                "answers": [
+                    "Battleship",
+                    "battleship"
+                ]
+            },
+            "5": {
+                "name": "Diplomacy between players is but\nas stepping stone to total global conquest\nin this territory-capturing game.",
+                "answers": [
+                    "RISK",
+                    "Risk",
+                    "risk"
+                ]
+            }
+        },
+        "4": {
+        "name": "Athletics\nOn Ice",
+            "1": {
+                "name": "You should know the name of this\nmultiple record-holding ice hockey player\nfrom Brantford, Ontario.",
+                "answers": [
+                    "Wayne Gretzky",
+                    "wayne gretzky",
+                    "Gretzky",
+                    "gretzky"
+                ]
+            },
+            "2": {
+                "name": "A professional ice hockey team founded\nin 1909, said to be able to turn an\narena into a cathedral in its heyday.",
+                "answers": [
+                    "Montreal Canadiens",
+                    "Montreal Canadians",
+                    "montreal canadiens",
+                    "montreal canadians",
+                    "Habs",
+                    "habs"
+                ]
+            },
+            "3": {
+                "name": "Instead of violence and stick-handling,\nhow about using a sheet of ice for\nthis Olympic test of speed",
+                "answers": [
+                    "Speed skating",
+                    "speed skating"
+                ]
+            },
+            "4": {
+                "name": "This Olympic sport involves sliding\nstones down the length of a rink to\nget them to sit within a target\nin order to earn points.",
+                "answers": [
+                    "Curling",
+                    "curling"
+                ]
+            },
+            "5": {
+                "name": "Before there was Gretzky and the Oilers,\nthere was this Long Island-based powerhouse\nof the late 70s and early 80s.",
+                "answers": [
+                    "New York Islanders",
+                    "new york islanders",
+                    "islanders",
+                    "Islanders"
+                ]
+            }
+        },
+        "5": {
+            "name": "Cars",
+            "1": {
+                "name": "These types of cars aren't\nactually all that smart, if you ask me",
+                "answers": [
+                    "Smart cars",
+		    "smart cars"	
+                ]
+            },
+            "2": {
+                "name": "This British motoring TV show was,\nat its peak, one of the most popular\nTV shows in the world.",
+                "answers": [
+                    "Top Gear",
+                    "top gear"
+                ]
+            },
+            "3": {
+                "name": "This 7-time world championship Forumla 1\nracer has been criticized for,\namong other things, being a cry baby.",
+                "answers": [
+                    "Lewis Hamilton",
+                    "lewis hamilton"
+                ]
+            },
+            "4": {
+                "name": "This actor and comedian is known for\nvoicing Mater in the Cars movies.",
+                "answers": [
+                    "Larry the Cable Guy",
+                    "larry the cable guy"
+                ]
+            },
+            "5": {
+                "name": "You may recognize this sports car model\nif you're a fan of the YouTuber CaptainSparklez.",
+                "answers": [
+                    "Ford GT",
+                    "ford gt"
+                ]
+            }
+        },
+        "6": {
+            "name": "Have A\nSnack",
+            "1": {
+                "name": "Prepare your mouth for the onslaught\nof pain it will endure eating\nthese aptly-named sour candies.",
+                "answers": [
+                    "Sour Patch Kids",
+                    "sour patch kids"
+                ]
+            },
+            "2": {
+                "name": "The bast way I can describe this candy is\nit's like an M&M but with no chocolate.",
+                "answers": [
+                    "Skittles",
+                    "skittles"
+                ]
+            },
+            "3": {
+                "name": "Pop some 3D glasses on and get some\nof this popular movie snack",
+                "answers": [
+                    "Popcorn",
+                    "popcorn"
+                ]
+            },
+            "4": {
+                "name": "Consuming this beverage will\nallegedly let you fly - or so\nits ads would claim.",
+                "answers": [
+                    "Red Bull",
+                    "red bull"
+                ]
+            },
+            "5": {
+                "name": "This brand of chips is known\nfor being a GAMER snack.",
+                "answers": [
+                    "Doritos",
+                    "doritos"
+                ]
+            }
+        }
+    }
+}
