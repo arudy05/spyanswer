@@ -1,0 +1,39 @@
+###############################################################################
+# SPYANSWER!                                                                  #
+# by Adam Rudy (arudy@ualberta.ca)                                            #
+# written for the ENCMP 100 Programming Contest at the University of Alberta  #
+###############################################################################
+
+SPYANSWER! is a trivia game played within the Spyder IDE. The game itself is modeled after
+the Jeopardy! game show and takes many cues from it, although you do not have to strictly
+follow that game's format. The game is played with 3 players in 2 rounds - each round has
+6 categories of 5 questions each with increasing point values, and the 2nd round's point
+values are doubled compared to the first round. The winner is simply the player with the
+most points at the end of the game. If you wish, you can make your own categories with
+their own questions and answers by editing the provided categories1.json and categories2.json
+files (whilst keeping the format intact, otherwise the file cannot be used).
+
+INCLUDED FILES:
+    v1.1.py          - The program itself
+    categories1.json - Categories, questions and answers for the first round of the game
+    categories2.json - Categories, questions and answers for the second round of the game
+    README           - The file you're reading right now.
+
+HOW TO PLAY:
+    - Run the file.
+    - Type 1 and press ENTER.
+    - Follow the prompts to set players up.
+    - When asked to pick a category, type in a number from 1 to 6 (corresponding to the position
+      of the category on the plot).
+    - When asked to pick a wager, select one of the available point amounts under the selected
+      category.
+    - The plot will then display a question. Wait three seconds, then press the key associated
+      with your player (A, B or L for players 1, 2 and 3 respectively) and press ENTER
+        - If you buzzed in succesfully, answer the question!
+            - If you answer the question wrong, you lose points and the other players get a
+              chance to answer.
+            - If you answer the question right, you gain points and the game goes on.
+        - If nobody buzzes in and you press ENTER, the game continues and no one earns any
+          points for the question
+    - Repeat until the game ends!
+    - If you wish to end a round prematurely, type "end" at the category prompt.
