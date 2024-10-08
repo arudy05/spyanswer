@@ -1,25 +1,125 @@
-################################################################################
-# SPYANSWER! - version 0.5                                                     #
-# an answer-and-question game (like Jeopardy!) for the Spyder IDE              #
-# by Adam Rudy (arudy@ualberta.ca)                                             #
-# written for the ENCMP 100 Programming Contest at the University of Alberta   #
-################################################################################
+###############################################################################
+# SPYANSWER! - version 0.6                                                    #
+# an answer-and-question trivia game (like Jeopardy!) for the Spyder IDE      #
+# by Adam Rudy (arudy@ualberta.ca)                                            #
+# written for the ENCMP 100 Programming Contest at the University of Alberta  #
+###############################################################################
 
 import matplotlib.pyplot as plt
 import matplotlib.font_manager as font
 import numpy as np
 import time
 
+## Global variables kept here for efficiency, etc
+categories = ["These","Are","Not","Actual","Jeopardy","Categories"]
+scores = [0,0,0]
+pBuzz = 0
+catSet = font.FontProperties(size="24", weight="bold")
+tileSet = font.FontProperties(size="36", weight="bold")
+gridcolours = np.full((6,6), "#010D8C")
+scorecolours = np.full((2,3), "#010D8C")
+
+def main(): # The heart and soul (not really) of the program
+    #fancy intro to the game
+    global players
+    players = []
+    print("[=========== This... ===========]", end="")
+    time.sleep(1.5)
+    print("\r[============ is... ============]", end="")
+    time.sleep(1.5) # huge ascii block coming up. woah
+    print("\r███████╗██████╗ ██╗   ██╗ █████╗ ███╗   ██╗███████╗██╗    ██╗███████╗██████╗ ██╗\n██╔════╝██╔══██╗╚██╗ ██╔╝██╔══██╗████╗  ██║██╔════╝██║    ██║██╔════╝██╔══██╗██║\n███████╗██████╔╝ ╚████╔╝ ███████║██╔██╗ ██║███████╗██║ █╗ ██║█████╗  ██████╔╝██║\n╚════██║██╔═══╝   ╚██╔╝  ██╔══██║██║╚██╗██║╚════██║██║███╗██║██╔══╝  ██╔══██╗╚═╝\n███████║██║        ██║   ██║  ██║██║ ╚████║███████║╚███╔███╔╝███████╗██║  ██║██╗\n╚══════╝╚═╝        ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝ ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝╚═╝\n")
+    time.sleep(1) 
+    
+    for i in range(3):
+        pname = str(input("[-------- Player %d name --------] > " % (i+1)))
+        players += [pname]
+    print("[== Player 1 buzzes in with A ==]")
+    print("[== Player 2 buzzes in with B ==]")
+    print("[== Player 3 buzzes in with L ==]\n")
+    round(1)
+    round(2)
+    print("[========= GAME OVER! =========]") 
+
+def round(num): #This function sets up rounds and then passes it off to game()
+    global rnddiv
+    global answer1
+    global answer2
+    global answer3
+    global answer4
+    global answer5
+    
+    rnddiv = 200*num
+    answer1 = [rnddiv*1] * 6
+    answer2 = [rnddiv*2] * 6
+    answer3 = [rnddiv*3] * 6
+    answer4 = [rnddiv*4] * 6
+    answer5 = [rnddiv*5] * 6
+    print("[======= ROUND %d START!! =======]\n" % num)
+    game()
+
+def game(): # This function handles the basic gameplay loop, calling on graphics() and buzzer() as needed.
+    graphics() # initial rendering of the board
+    # Checking that there are still spaces on the board left
+    while np.sum(answer1)+np.sum(answer2)+np.sum(answer3)+np.sum(answer4)+np.sum(answer5) != 0:        
+        error = False
+        cat = input("[------ Select a category ------] > ")
+        try: # Error handling - making sure that cat can be an integer
+            int(cat) # I realize that decimals just end up ignored -- that's fine honestly
+        except ValueError:
+            error = True
+        if error:
+            print("[###### Invalid category! ######]")
+        elif int(cat) < 1 or int(cat) > 6: #there are only 6 categories. restart
+            print("[###### Invalid category! ######]")
+        else:
+            cat = int(cat) - 1
+            wager = input("[--------- Your wager? ---------] > ")
+            try: # more error handling :)
+                indexes = int(wager)/rnddiv # important
+            except ValueError:
+                error = True
+            if error:
+                print("[####### Invalid wager!! #######]]")
+            elif indexes < 1 or indexes > 5:
+                print("[####### Invalid wager!! #######]")
+            elif tablecells[int(indexes)][cat] == 0: #cant select a tile that was already selected
+                print("[####### Invalid wager!! #######]")
+            else:
+                match indexes: #there is a syntax error here according to spyder. ignore this
+                    case 1|2|3|4|5:
+                        buzzer()
+                        if indexes == 1:
+                            answer1[cat] = 0
+                        elif indexes == 2:
+                            answer2[cat] = 0
+                        elif indexes == 3:
+                            answer3[cat] = 0
+                        elif indexes == 4:
+                            answer4[cat] = 0
+                        else:
+                            answer5[cat] = 0
+                        if pBuzz == 3:
+                            print("[### No answer! Moving on... ###]")
+                        else: # if pBuzz is anything other than 0, 1, 2 or 3 we have bigger problems
+                            scores[pBuzz] = scores[pBuzz] + int(rnddiv*indexes)#adds value of the tile to player's score
+                        graphics() #refreshes graphics to reflect the updated board
+                    case other: #you can't wager other values than the ones that are on the board
+                        print("[####### Invalid wager!! #######]")
+        print()
+    print("All questions selected!\n")
+
 def buzzer(): # This function handles the "buzzer" for each answer.
     #A 5-second countdown before you can buzz in.
+    print()
     for i in range(1,6):
         countdown = abs(6-i)
-        print("%d ... " % countdown, end="")
+        print("\r[============== %d ==============]" % countdown, end="")
         time.sleep(1)
+    print("\r[============= GO! =============]")
     
     #the idea here is that the first person to buzz in will be the first to type thus yeah
-    buzz = str(input("\nBuzz in and press ENTER! "))
     global pBuzz
+    buzz = str(input("[-------- Buzz in now!! --------] > "))
     bnum = 0
     while True: # makes sure that the players are pressing the right keys to buzz in
         try:
@@ -41,18 +141,12 @@ def buzzer(): # This function handles the "buzzer" for each answer.
 def graphics(): #This function handles drawing the game's graphics.
     global tablecells 
     
-    #These variables are used to set the formatting for each cell.
-    catSet = font.FontProperties(size="24", weight="bold")
-    tileSet = font.FontProperties(size="36", weight="bold")
-    gridcolours = np.full((6,6), "#010D8C")
-    scorecolours = np.full((2,3), "#010D8C")
-    
     #These variables take pre-existing lists and arrange them into something usable
     tablecells = [categories, answer1, answer2, answer3, answer4, answer5 ]
     scorecells = [players, scores]
     
     #base figure everything goes onto this thing
-    plt.figure(figsize=(12,2),dpi=100,facecolor="#0567D2")
+    plt.figure(figsize=(12,1),dpi=100,facecolor="#0567D2")
     
     #Draws the grid with all the answer values and everything
     grid = plt.table(tablecells,loc='top',cellLoc='center',cellColours=gridcolours)
@@ -67,7 +161,6 @@ def graphics(): #This function handles drawing the game's graphics.
             else:
                 cellText.set_color("#D69F4C")
                 cellText.set_fontproperties(tileSet)
-                cellText.set_text(str(cellText)[13:-3])
     
     #Draws the table with player scores
     score = plt.table(scorecells,loc='bottom',cellLoc='center',cellColours=scorecolours)
@@ -89,91 +182,4 @@ def graphics(): #This function handles drawing the game's graphics.
     plt.box(on=None)
     plt.show()
 
-def game(): # This function handles the basic gameplay loop, calling on graphics() and buzzer() as needed.
-    graphics() # initial rendering of the board
-    # Checking that there are still spaces on the board left
-    while np.sum(answer1)+np.sum(answer2)+np.sum(answer3)+np.sum(answer4)+np.sum(answer5) != 0:        
-        error = False
-        cat = input("Select a category (1-6, L-R): ")
-        try: # Error handling - making sure that cat can be an integer
-            int(cat) # I realize that decimals just end up ignored -- that's fine honestly
-        except ValueError:
-            error = True
-        if error:
-            print("Not a valid category!")
-        elif int(cat) < 1 or int(cat) > 6: #there are only 6 categories. restart
-            print("Not a valid category!")
-        else:
-            cat = int(cat)
-            wager = input("For how much? ")
-            try: # more error handling :)
-                indexes = int(wager)/rnddiv # important
-            except ValueError:
-                error = True
-            if error:
-                print("Not a valid wager!")
-            elif indexes < 1 or indexes > 5:
-                print("Not a valid wager!")
-            elif tablecells[int(indexes)][cat-1] == 0: #cant select a tile that was already selected
-                print("Not a valid wager!")
-            else:
-                match indexes: #there is a syntax error here according to spyder. ignore this
-                    case 1|2|3|4|5:
-                        buzzer()
-                        if indexes == 1:
-                            answer1[cat-1] = 0
-                        elif indexes == 2:
-                            answer2[cat-1] = 0
-                        elif indexes == 3:
-                            answer3[cat-1] = 0
-                        elif indexes == 4:
-                            answer4[cat-1] = 0
-                        else:
-                            answer5[cat-1] = 0
-                        if pBuzz == 3:
-                            print("Nobody answered! Moving on...")
-                        else: # if pBuzz is anything other than 0, 1, 2 or 3 we have bigger problems
-                            scores[pBuzz] = scores[pBuzz] + int(rnddiv*indexes)#adds value of the tile to player's score
-                        graphics() #refreshes graphics to reflect the updated board
-                    case other: #you can't wager other values than the ones that are on the board
-                        print("Not a valid wager!")
-        print()
-    print("All questions selected!\n")
-
-def round(num): #This function sets up rounds and then passes it off to game()
-    global rnddiv
-    global answer1
-    global answer2
-    global answer3
-    global answer4
-    global answer5
-    
-    rnddiv = 200*num
-    answer1 = np.full((6,1), rnddiv*1)
-    answer2 = np.full((6,1), rnddiv*2)
-    answer3 = np.full((6,1), rnddiv*3)
-    answer4 = np.full((6,1), rnddiv*4)
-    answer5 = np.full((6,1), rnddiv*5)
-    print("ROUND %d \n" % num)
-    game()
-
-categories = ["These","Are","Not","Actual","Jeopardy","Categories"]
-players = []
-scores = [0,0,0]
-pBuzz = 0
-
-#fancy intro to the game
-print("This... ", end="")
-time.sleep(1)
-print("is... ", end="")
-time.sleep(1) # huge ascii block coming up. woah
-print("\n███████╗██████╗ ██╗   ██╗ █████╗ ███╗   ██╗███████╗██╗    ██╗███████╗██████╗ ██╗\n██╔════╝██╔══██╗╚██╗ ██╔╝██╔══██╗████╗  ██║██╔════╝██║    ██║██╔════╝██╔══██╗██║\n███████╗██████╔╝ ╚████╔╝ ███████║██╔██╗ ██║███████╗██║ █╗ ██║█████╗  ██████╔╝██║\n╚════██║██╔═══╝   ╚██╔╝  ██╔══██║██║╚██╗██║╚════██║██║███╗██║██╔══╝  ██╔══██╗╚═╝\n███████║██║        ██║   ██║  ██║██║ ╚████║███████║╚███╔███╔╝███████╗██║  ██║██╗\n╚══════╝╚═╝        ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝ ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝╚═╝\n")
-time.sleep(1) 
-
-for i in range(3):
-    pname = str(input("Player %i: " % (i+1)))
-    players += [pname]
-print("Player 1 buzzes in with A, Player 2 buzzes in with B, Player 3 buzzes in with L\n")
-round(1)
-round(2)
-print("Game over!")
+main()
