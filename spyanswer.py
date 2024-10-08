@@ -1,9 +1,9 @@
-#####################################################
-# SPYANSWER! - version 0.4                          #
-# an answer-and-question game for the Spyder IDE    #
-# by Adam Rudy                                      #
-# written for the ENCMP 100 Programming Contest     #
-#####################################################
+################################################################################
+# SPYANSWER! - version 0.5                                                     #
+# an answer-and-question game (like Jeopardy!) for the Spyder IDE              #
+# by Adam Rudy (arudy@ualberta.ca)                                             #
+# written for the ENCMP 100 Programming Contest at the University of Alberta   #
+################################################################################
 
 import matplotlib.pyplot as plt
 import matplotlib.font_manager as font
@@ -11,7 +11,7 @@ import numpy as np
 import time
 
 def buzzer(): # This function handles the "buzzer" for each answer.
-    # A 5-second countdown before you can buzz in.
+    #A 5-second countdown before you can buzz in.
     for i in range(1,6):
         countdown = abs(6-i)
         print("%d ... " % countdown, end="")
@@ -22,17 +22,21 @@ def buzzer(): # This function handles the "buzzer" for each answer.
     global pBuzz
     bnum = 0
     while True: # makes sure that the players are pressing the right keys to buzz in
-        if buzz[bnum] == "a":
-            pBuzz = 0 #Player 1
+        try:
+            if buzz[bnum] == "a":
+                pBuzz = 0 #Player 1
+                break
+            elif buzz[bnum] == "b":
+                pBuzz = 1 # Player 2
+                break
+            elif buzz[bnum] == "l":
+                pBuzz = 2 # Player 3
+                break
+            else:
+                bnum = bnum+1
+        except IndexError:
+            pBuzz = 3 #special condition for if no one answered at all
             break
-        elif buzz[bnum] == "b":
-            pBuzz = 1 # Player 2
-            break
-        elif buzz[bnum] == "l":
-            pBuzz = 2 # Player 3
-            break
-        else:
-            bnum = bnum+1
 
 def graphics(): #This function handles drawing the game's graphics.
     global tablecells 
@@ -86,20 +90,34 @@ def graphics(): #This function handles drawing the game's graphics.
     plt.show()
 
 def game(): # This function handles the basic gameplay loop, calling on graphics() and buzzer() as needed.
+    graphics() # initial rendering of the board
     # Checking that there are still spaces on the board left
-    while np.sum(answer1)+np.sum(answer2)+np.sum(answer3)+np.sum(answer4)+np.sum(answer5) != 0:    
-        graphics() #refreshes the board
-        
-        cat = int(input("Select a category (1-6, L-R): "))
-        if cat < 1 or cat > 6: #there are only 6 categories. restart
+    while np.sum(answer1)+np.sum(answer2)+np.sum(answer3)+np.sum(answer4)+np.sum(answer5) != 0:        
+        error = False
+        cat = input("Select a category (1-6, L-R): ")
+        try: # Error handling - making sure that cat can be an integer
+            int(cat) # I realize that decimals just end up ignored -- that's fine honestly
+        except ValueError:
+            error = True
+        if error:
+            print("Not a valid category!")
+        elif int(cat) < 1 or int(cat) > 6: #there are only 6 categories. restart
             print("Not a valid category!")
         else:
-            wager = int(input("For how much? "))
-            indexes = wager/rnddiv # important
-            if tablecells[int(indexes)][cat-1] == 0: #cant select a tile that was already selected
-                print("Tile already selected!")
-            elif indexes <= 5 and indexes >= 1:
-                match indexes:
+            cat = int(cat)
+            wager = input("For how much? ")
+            try: # more error handling :)
+                indexes = int(wager)/rnddiv # important
+            except ValueError:
+                error = True
+            if error:
+                print("Not a valid wager!")
+            elif indexes < 1 or indexes > 5:
+                print("Not a valid wager!")
+            elif tablecells[int(indexes)][cat-1] == 0: #cant select a tile that was already selected
+                print("Not a valid wager!")
+            else:
+                match indexes: #there is a syntax error here according to spyder. ignore this
                     case 1|2|3|4|5:
                         buzzer()
                         if indexes == 1:
@@ -111,14 +129,33 @@ def game(): # This function handles the basic gameplay loop, calling on graphics
                         elif indexes == 4:
                             answer4[cat-1] = 0
                         else:
-                            answer5[cat-1] = 0                    
-                        scores[pBuzz] = scores[pBuzz] + int(rnddiv*indexes) #adds value of the tile to player's score
+                            answer5[cat-1] = 0
+                        if pBuzz == 3:
+                            print("Nobody answered! Moving on...")
+                        else: # if pBuzz is anything other than 0, 1, 2 or 3 we have bigger problems
+                            scores[pBuzz] = scores[pBuzz] + int(rnddiv*indexes)#adds value of the tile to player's score
+                        graphics() #refreshes graphics to reflect the updated board
                     case other: #you can't wager other values than the ones that are on the board
                         print("Not a valid wager!")
-            else: #just in case there's some edge case i didn't think of
-                print("Not a valid wager!")
         print()
-    print("All questions selected! Game over!")
+    print("All questions selected!\n")
+
+def round(num): #This function sets up rounds and then passes it off to game()
+    global rnddiv
+    global answer1
+    global answer2
+    global answer3
+    global answer4
+    global answer5
+    
+    rnddiv = 200*num
+    answer1 = np.full((6,1), rnddiv*1)
+    answer2 = np.full((6,1), rnddiv*2)
+    answer3 = np.full((6,1), rnddiv*3)
+    answer4 = np.full((6,1), rnddiv*4)
+    answer5 = np.full((6,1), rnddiv*5)
+    print("ROUND %d \n" % num)
+    game()
 
 categories = ["These","Are","Not","Actual","Jeopardy","Categories"]
 players = []
@@ -137,16 +174,6 @@ for i in range(3):
     pname = str(input("Player %i: " % (i+1)))
     players += [pname]
 print("Player 1 buzzes in with A, Player 2 buzzes in with B, Player 3 buzzes in with L\n")
-print("What round would you like to play?")
-rnd = int(input("(1 for Jeopardy!, 2 for Double Jeopardy!): "))
-print()
-if rnd == 1 or rnd == 2:
-    rnddiv = 200*rnd
-    answer1 = np.full((6,1), rnddiv*1)
-    answer2 = np.full((6,1), rnddiv*2)
-    answer3 = np.full((6,1), rnddiv*3)
-    answer4 = np.full((6,1), rnddiv*4)
-    answer5 = np.full((6,1), rnddiv*5)
-    game()
-else:
-    print("Not a valid round type! Exiting...")
+round(1)
+round(2)
+print("Game over!")
