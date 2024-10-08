@@ -1,0 +1,283 @@
+{
+    "key": "trebek",
+    "category": {
+        "1": {
+            "name": "Let There\nBe Rock",
+            "2": {
+                "name": "This band released an album (and\na song of the same\nname) which this category\nis named after.",
+                "answers": [
+                    "AC/DC",
+                    "ACDC",
+                    "ac/dc",
+                    "acdc"
+                ]
+            },
+            "1": {
+                "name": "This super-popular 90's group,\nwhilst only releasing a handful of albums,\nhave had such an major influence\nthat clothing with their name on it\nis not an uncommon sight, even today.",
+                "answers": [
+                    "Nirvana",
+                    "nirvana"
+                ]
+            },
+            "3": {
+                "name": "This band proved to incredibly popular -\nso pupular, in fact, that there exists\na term describing the sheer\nfanaticism surrounding them.",
+                "answers": [
+                    "The Beatles",
+                    "the beatles",
+                    "Beatles",
+                    "beatles"
+                ]
+            },
+            "4": {
+                "name": "You'll recognise the cover for the album\nreleased by this group: a prism\nrefracting white light into a rainbow.",
+                "answers": [
+                    "Pink Floyd",
+                    "pink floyd"
+                ]
+            },
+            "5": {
+                "name": "This Canadian group's biggest hits\ninclude a song named after\na Mark Twain classic and another\n named after a radio station's slogan.",
+                "answers": [
+                    "Rush",
+                    "rush",
+                    "RUSH"
+                ]
+            }
+        },
+        "2": {
+            "name": "Wars, Trek,\nand other\nStars",
+            "1": {
+                "name": "This star is one we see every day.\n(If you get this one wrong, please\nreconsider your life decisions.)",
+                "answers": [
+                    "The Sun",
+                    "The sun",
+                    "the sun",
+                    "sun",
+                    "Sun"
+                ]
+            },
+            "2": {
+                "name": "This villain was inexplicably revived\n(and subsequently killed) in the\nlatest big-picture installment of his franchise.",
+                "answers": [
+                    "Emperor Palpatine",
+                    "Chancellor Palpatine",
+                    "Senator Palpatine",
+                    "Palpatine",
+                    "palpatine",
+                    "emperor palpatine",
+                    "Darth Sidious",
+                    "sidious"
+                ]
+            },
+            "3": {
+                "name": "This star is commonly referred to as\nthe North Star, but have you heard\nof this other name for it?",
+                "answers": [
+                    "Polaris",
+                    "polaris"
+                ]
+            },
+            "4": {
+                "name": "'To boldly go where no man has gone before',\nwas first uttered by this Canadian actor.",
+                "answers": [
+                    "William Shatner",
+                    "Shatner",
+                    "shatner"
+                ]
+            },
+            "5": {
+                "name": "This franchise is another one with a\nstar title - but it's probably\nnot the one you're thinking of.",
+                "answers": [
+                    "Stargate",
+                    "stargate"
+                ]
+            }
+        },
+        "3": {
+        "name": "Video\nGameing",
+            "1": {
+                "name": "There's no way I can write a clue\nfor this one without giving away\nthe answer, so I'll say this instead:\nSus.",
+                "answers": [
+                    "Among Us",
+                    "among us",
+                    "amongus"
+                ]
+            },
+            "2": {
+                "name": "The former best-selling game of all time,\nbefore that stupid block game\ntook its spot at the top.",
+                "answers": [
+                    "Tetris",
+                    "tetris"
+                ]
+            },
+            "4": {
+                "name": "Jumpscares await you in this franchise\nthat has way too many Game Theory\nvideos discussing it.",
+                "answers": [
+                    "Five Nights at Freddy's",
+                    "five nights at freddy's",
+                    "five nights at freddys",
+                    "FNAF",
+                    "fnaf"
+                ]
+            },
+            "5": {
+                "name": "This classic time-waster bundled with\nthe Windows operating system\ninvolves not cards, but bombs.",
+                "answers": [
+                    "Minesweeper",
+                    "minesweeper"
+                ]
+            },
+            "3": {
+                "name": "Enough about video games, how about we\ngo outside and play this game\nwith a ball and two nets,",
+                "answers": [
+                    "Soccer",
+                    "soccer",
+                    "Football",
+                    "football"
+                ]
+            }
+        },
+        "4": {
+        "name": "Countries\n(according\nto an idiot)",
+            "2": {
+                "name": "Land of anime, electronics companies\nand culture Redditors swoon over for\nsome reason I can't exactly decipher.",
+                "answers": [
+                    "Japan",
+                    "japan"
+                ]
+            },
+            "1": {
+                "name": "Land of eagles and fuckin HAMBURGER",
+                "answers": [
+                    "America",
+                    "america",
+                    "USA",
+                    "United States",
+                    "US",
+                    "united states",
+                    "United States of America",
+                    "united states of america",
+                    "usa",
+                    "us"
+                ]
+            },
+            "3": {
+                "name": "Poor dental hygiene, stabbing, and -\noh wait, those are just stereotypes, my bad.",
+                "answers": [
+                    "England",
+                    "england"
+                ]
+            },
+            "4": {
+                "name": "Hey, did you know they filmed\nThe Lord of the Rings here?",
+                "answers": [
+                    "new zealand",
+                    "New Zealand",
+                    "NZ",
+                    "nz"
+                ]
+            },
+            "5": {
+                "name": "The country home to \n\"da best of da best movies\",\naccording to the creator of (in)famous low-budget\nfilm 'Who Killed Captain Alex?'",
+                "answers": [
+                    "Uganda",
+                    "uganda"
+                ]
+            }
+        },
+        "5": {
+            "name": "NO NO NO\nNO NO NO",
+            "1": {
+                "name": "This date associated with an unfortunate\nearly-2000s catastrophe is probably etched into\neverybody's minds at this point.",
+                "answers": [
+                    "9/11",
+                    "911",
+                    "9/11/2001",
+                    "11/9/2001",
+                    "September 11 2001",
+                    "September 11th 2001",
+                    "September 11th, 2001",
+                    "september 11 2001",
+                    "september 11th 2001"
+                ]
+            },
+            "2": {
+                "name": "This genocide of a certain race during the 1930-40s\nhas people denying it even happened today\ndespite evidence to the contrary.",
+                "answers": [
+                    "The Holocaust",
+                    "Holocaust",
+                    "the holocaust",
+                    "holocaust"
+                ]
+            },
+            "4": {
+                "name": "In August 1945, the United States dropped bombs on\nHiroshima and this other Japanese city.",
+                "answers": [
+                    "Nagasaki",
+                    "nagasaki"
+                ]
+            },
+            "5": {
+                "name": "During the US's involvment in Afghanistan,\na hospital in this Afghan city was infamously\nhit by drone strikes ordered by the\nObama administration.",
+                "answers": [
+                    "Kunduz",
+                    "kunduz"
+                ]
+            },
+            "3": {
+                "name": "\"Now I am become Death, destroyer of worlds\" -\na quote from this man behind the Manhattan Project.",
+                "answers": [
+                    "Oppenheimer",
+                    "oppenheimer",
+                    "J. Robert Oppenheimer",
+                    "J Robert Oppenheimer",
+                    "j robert oppenheimer"
+                ]
+            }
+        },
+        "6": {
+            "name": "It's time\nto break\nbad",
+            "3": {
+                "name": "This character, consistently referred to\nby an alias, thought himself as the reason Walter\nWhite was never arrested.",
+                "answers": [
+                    "Jimmy McGill",
+                    "jimmy mcgill",
+                    "James McGill",
+                    "james mcgill"
+                ]
+            },
+            "2": {
+                "name": "This character played by Jonathan Banks\nwas a 'fixer' of sorts, dealing with\nand covering up the results of\nparticularly sticky situations.",
+                "answers": [
+                    "Mike Ehrmantraut",
+                    "mike ehrmantraut",
+                    "Michael Ehrmantraut",
+                    "michael ehrmantraut"
+                ]
+            },
+            "1": {
+                "name": "This meth kingpin, at odds with the\ncartel, met his demise to a bomb set\noff by his nemesis - with help from\nHeisenberg, no less.",
+                "answers": [
+                    "Gustavo Fring",
+                    "Gus Fring",
+                    "gustavo fring",
+                    "gus fring"
+                ]
+            },
+            "4": {
+                "name": "This character, introduced at the very\nend of Breaking Bad, had a\nneo-nazi for an uncle.",
+                "answers": [
+                    "Todd Alquist",
+                    "todd alquist"
+                ]
+            },
+            "5": {
+                "name": "See if you can remember this detail:\nthe briefly-mentioned street name for\nHeisenberg's \"product\".",
+                "answers": [
+                    "Blue Sky",
+                    "blue sky",
+                    "Blue sky"
+                ]
+            }
+        }
+    }
+}
