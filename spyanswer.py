@@ -1,7 +1,19 @@
 import matplotlib.pyplot as plt
+import numpy as np
+
+def buzzer():
+    buzz = str(input("Buzz in and press ENTER! "))
+    global pBuzz
+    if buzz[0] == "a":
+        pBuzz = 0 #Player 1
+    elif buzz[0] == "b":
+        pBuzz = 1 # Player 2
+    elif buzz[0] == "l":
+        pBuzz = 2 # Player 3
 
 def game():
-    while sum(answer1)+sum(answer2)+sum(answer3)+sum(answer4)+sum(answer5) != 0:    
+    # Checking that there are still spaces on the board left
+    while np.sum(answer1)+np.sum(answer2)+np.sum(answer3)+np.sum(answer4)+np.sum(answer5) != 0:    
         #Format and display score and grid
         tablecells = [categories, answer1, answer2, answer3, answer4, answer5 ]
         scorecells = [players, scores]
@@ -18,7 +30,7 @@ def game():
         plt.gca().get_yaxis().set_visible(False)
         plt.box(on=None)
         plt.show()
-        #the gameplay
+        #The actual gameplay
         cat = int(input("Select a category (1-6, L-R): "))
         if cat < 1 or cat > 6:
             print("Not a valid category!")
@@ -27,20 +39,25 @@ def game():
             if tablecells[int(wager/rnddiv)][cat-1] == 0:
                 print("Tile already selected!")
             elif wager == rnddiv:
+                buzzer()
                 answer1[cat-1] = 0
-                scores[0] = scores[0] + rnddiv
+                scores[pBuzz] = scores[pBuzz] + rnddiv
             elif wager == rnddiv*2:
+                buzzer()
                 answer2[cat-1] = 0
-                scores[0] = scores[0] + rnddiv*2
+                scores[pBuzz] = scores[pBuzz] + rnddiv*2
             elif wager == rnddiv*3:
+                buzzer()
                 answer3[cat-1] = 0
-                scores[0] = scores[0] + rnddiv*3
+                scores[pBuzz] = scores[pBuzz] + rnddiv*3
             elif wager == rnddiv*4:
+                buzzer()
                 answer4[cat-1] = 0
-                scores[0] = scores[0] + rnddiv*4
+                scores[pBuzz] = scores[pBuzz] + rnddiv*4
             elif wager == rnddiv*5:
+                buzzer()
                 answer5[cat-1] = 0
-                scores[0] = scores[0] + rnddiv*5
+                scores[pBuzz] = scores[pBuzz] + rnddiv*5
             else:
                 print("Not a valid wager!")
         print()
@@ -49,27 +66,22 @@ def game():
 categories = ["These","Are","Not","Actual","Jeopardy","Categories"]
 players = []
 scores = [0,0,0]
+pBuzz = 0
 print("This.. is... JEOPARDY!\n")
 for i in range(3):
     pname = str(input("Player %i: " % (i+1)))
     players += [pname]
-rnd = int(input("What round would you like to play? "))
+print("Player 1 buzzes in with A, Player 2 buzzes in with B, Player 3 buzzes in with L\n")
+print("What round would you like to play?")
+rnd = int(input("(1 for Jeopardy!, 2 for Double Jeopardy!): "))
 print()
-if rnd == 1:
-    answer1 = [200,200,200,200,200,200]
-    answer2 = [400,400,400,400,400,400]
-    answer3 = [600,600,600,600,600,600]
-    answer4 = [800,800,800,800,800,800]
-    answer5 = [1000,1000,1000,1000,1000,1000]
-    rnddiv = 200
-    game()
-elif rnd == 2:
-    answer1 = [400,400,400,400,400,400]
-    answer2 = [800,800,800,800,800,800]
-    answer3 = [1200,1200,1200,1200,1200,1200]
-    answer4 = [1600,1600,1600,1600,1600,1600]
-    answer5 = [2000,2000,2000,2000,2000,2000]
-    rnddiv = 400
+if rnd == 1 or rnd == 2:
+    rnddiv = 200*rnd
+    answer1 = np.full((6,1), rnddiv*1)
+    answer2 = np.full((6,1), rnddiv*2)
+    answer3 = np.full((6,1), rnddiv*3)
+    answer4 = np.full((6,1), rnddiv*4)
+    answer5 = np.full((6,1), rnddiv*5)
     game()
 else:
     print("Not a valid round type!")
